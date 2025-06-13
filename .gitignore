@@ -1,13 +1,12 @@
-# Python
-*.pyc
+# Ignore Python cache and logs
 __pycache__/
-
-# Django stuff:
+*.pyc
+*.pyo
 *.log
-db.sqlite3
-/media/
-/staticfiles/
 
-# Environment
+# Ignore DB and local environment files
+db.sqlite3
 .env
-venv/
+
+# Ignore staticfiles if collected
+/staticfiles/
