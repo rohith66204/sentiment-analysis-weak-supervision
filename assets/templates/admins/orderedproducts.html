@@ -1,0 +1,52 @@
+{% extends 'admins/base.html' %}
+{% block adminbody %}
+<style>
+tr:first-child{
+background:green;
+}
+th span{
+color:black;
+}
+span{
+color:white;
+}
+table tr th{
+padding:15px;
+text-align:center;
+}
+.tableholder{
+padding:10px;
+float:left;
+width:80%;
+background:rgba(94, 142, 137,0.7);
+}
+table{
+border:1px solid green;
+border-collapse:collapse;
+width:100%;
+}
+td{
+border-right:1px solid green;
+border-bottom:1px solid green;
+}
+</style>
+<div class="tableholder">
+<table>
+<tr>
+<th><span>Product Name</span></th>
+<th><span>Product price(in Rs.)</span></th>
+<th><span>Ratings</span></th>
+<th><span>Reviews</span></th>
+<th><span>Sentiment</span></th>
+</tr>
+{% for or in order %}
+<tr>
+    <td align="center"><span>{{or.prod.name}}</span></td>
+<td align="center"><span>{{or.prodqty}}</span></td>
+<td align="center"><span>{{or.location}}</span></td>
+<td align="center"><span>{{or.status}}</span></td>
+<td align="center"><span>{{or.dateordered}}</span></td>
+{% endfor %}
+</tr>
+</table>
+{% endblock %}

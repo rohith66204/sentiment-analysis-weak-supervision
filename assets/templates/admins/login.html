@@ -1,0 +1,211 @@
+{% extends 'baselog.html' %}
+{% block loginbody %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login</title>
+    <style>
+        /* Same styles as userlogin.html */
+        body {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .mainblog {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 60px;
+            width: 450px;
+            max-width: 95%;
+            margin: 20px auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            text-align: center;
+            color: white;
+        }
+
+        .mainblog img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .logintable {
+            width: 100%;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 90%;
+            padding: 12px;
+            margin: 12px auto;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid white;
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        input::placeholder {
+            color: white;
+            opacity: 0.7;
+        }
+
+        input[type="submit"].subbtn {
+            width: 60%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"].subbtn:hover {
+            background: white;
+            color: #2c3e50;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            display: inline-block;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            color: #2c3e50;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .login-options {
+            margin-top: 20px;
+        }
+
+        .register-link {
+            margin-top: 20px;
+            display: block;
+        }
+
+        .banner {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(135deg, rgba(44,62,80,0.9) 0%, rgba(76,161,175,0.9) 100%);
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding: 12px 0;
+        box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    .marquee-text {
+        color: #fff;
+        font-size: 50px;
+        text-transform: uppercase;
+        margin: 0;
+        font-weight: 500;
+        letter-spacing: 1.2px;
+        font-family: 'Segoe UI', sans-serif;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        padding: 8px 0;
+        position: relative;
+    }
+
+    .marquee-text::before,
+    .marquee-text::after {
+        content: '✦';
+        color: rgba(255,255,255,0.8);
+        margin: 0 25px;
+        font-size: 18px;
+        animation: sparkle 1.5s infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+
+    marquee {
+        padding: 5px 0;
+    }
+    
+    .banner {
+         margin-top: 40px;
+         background:rgb(177, 177, 255)
+         border-radius: 8px;
+         padding: 12px 0;
+         position: relative;
+      }
+
+        .banner p {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+        }
+
+        marquee {
+            padding: 8px 0;
+        }
+
+        .title-img1 {
+            width: 100%;
+            margin-top: 2%;
+        }
+
+        .title-img2 {
+            width: 60%;
+            margin-left: 20%;
+            margin-top: -3%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Images -->
+    <img src="{% static 'images/title2.png' %}" class="title-img1">
+    <img src="{% static 'images/title1.png' %}" class="title-img2">
+
+    <!-- Login Form -->
+    <div class="mainblog">
+        <img src="{% static 'images/admin.png' %}" alt="Admin Icon">
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <table class="logintable">
+                <tr><td><input type="text" name="username" placeholder="Username" required></td></tr>
+                <tr><td><input type="password" name="password" placeholder="Password" required></td></tr>
+                <tr><td><input type="submit" value="Submit" class="subbtn" /></td></tr>
+            </table>
+
+            <div class="login-options">
+                <a href="{% url 'users:login' %}">User Login</a> |
+                <a href="{% url 'admins:login' %}">Admin Login</a>
+            </div>
+        </form>
+    </div>
+
+     <div class="banner">
+    <marquee behavior="scroll" direction="left" scrollamount="6">
+        <p class="marquee-text">
+            Weakly-supervised Deep Embedding for Product Review Sentiment Analysis
+        </p>
+    </marquee>
+</div>
+
+</body>
+</html>
+{% endblock %}

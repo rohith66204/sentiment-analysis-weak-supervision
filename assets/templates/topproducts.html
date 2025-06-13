@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block userbody %}
+{% load static %}
+
+<style>
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.active, .accordion:hover {
+    background-color: #ccc;
+}
+
+.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+
+.panel {
+    padding:0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+table{
+border-collapse:collapse;
+border:1px solid green;
+}
+td{
+border-bottom:1px solid green;
+padding:2px;
+}
+th{
+background:green;
+}
+tr:hover{
+background:#CCCCCC;
+}
+</style>
+</head>
+<body>
+
+{% for val in vallit %}
+<button class="accordion">{{val.category}}</button>
+<div class="panel">
+<table>
+<tr>
+<th>Name</th>
+<th>Weight</th>
+<th>Color</th>
+<th>Price</th>
+<th>Stock</th>
+<th>Image</th>
+<th>Description</th>
+</tr>
+    {% for pr in prod %}
+        {% if pr.category == val.category %}
+            <tr>
+            <td>{{pr.name}}</td>
+            <td>{{pr.weight}}</td>
+            <td>{{pr.color}}</td>
+            <td>{{pr.price}}</td>
+            <td>{{pr.stock}}</td>
+            <td><img src="{{pr.images.url}}" style="width:100px;height:100px;" /></td>
+            <td>{{pr.description}}</td>
+        {% endif %}
+    {% endfor %}
+        </tr>
+    </table>
+</div>
+{% endfor %}
+
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>CSS3 MENU BUILD</title>
+  
+  
+  
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  
+</head>
+
+<body style="background:url({% static 'images/2.jpg' %});">
+
+      <ul>
+        <li style="width: 16.6666666666667%"><a href="{% url 'admins:home' %}" target="">Home</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'admins:uploadproduct' %}" target="">Upload Products</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'admins:viewratings' %}" target="">View Ratings</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'admins:orderedproducts' %}" target="">Ordered Products</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'admins:confirmedproduct' %}" target="">Confirmed Orders</a></li>
+        
+        <li style="width: 16.6666666666667%"><a href="{% url 'admins:graph' 'products' %}" target="">Graphs</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'admins:logout' %}" target="">Logout</a></li>
+    </ul>
+  <div style="margin-top:-400px;margin-left:400px;">
+    {% block adminbody %}
+    {% endblock %}
+    </div>
+
+</body>
+
+</html>

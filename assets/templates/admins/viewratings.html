@@ -1,0 +1,53 @@
+{% extends 'admins/base.html' %}
+{% block adminbody %}
+<style>
+th span{
+color:black;
+}
+span{
+color:white;
+}
+table tr th{
+padding:15px;
+text-align:center;
+}
+.tableholder{
+padding:10px;
+float:left;
+width:80%;
+background:rgba(94, 142, 137,0.7);
+}
+table{
+width:100%;
+border:1px solid green;
+border-collapse:collapse;
+}
+td{
+border-right:1px solid green;
+border-bottom:1px solid green;
+}
+tr:first-child{
+background:green;
+}
+</style>
+<div class="tableholder">
+<table>
+<tr>
+<th><span>Product Name</span></th>
+<th><span>Product price(in Rs.)</span></th>
+<th><span>Ratings</span></th>
+<th><span>Reviews</span></th>
+<th><span>Sentiment</span></th>
+</tr>
+{% for ra in ratings %}
+<tr>
+    <td align="center"><span>{{ra.product.name}}</span></td>
+    <td align="center"><span>{{ra.product.price}}</span></td>
+    <td align="center"><span>{{ra.ratings}}</span></td>
+    <td align="center"><span>{{ra.reviews}}</span></td>
+    <td align="center"><span>{{ra.sentiments}}</span></td>
+{% endfor %}
+</tr>
+</table>
+</div>
+{% endblock %}

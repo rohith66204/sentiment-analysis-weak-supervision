@@ -1,0 +1,56 @@
+{% extends 'admins/base.html' %}
+{% block adminbody %}
+<style>
+th span{
+color:black;
+}
+span{
+color:white;
+}
+table tr th{
+padding:15px;
+text-align:center;
+}
+td{
+text-align:center;
+}
+.tableholder{
+padding:10px;
+float:left;
+width:80%;
+background:rgba(94, 142, 137,0.7);
+}
+table{
+border:1px solid green;
+border-collapse:collapse;
+width:100%;
+}
+td{
+border-right:1px solid green;
+border-bottom:1px solid green;
+}
+tr:first-child{
+background:green;
+}
+</style>
+<div class="tableholder">
+<table>
+  <tr>
+    <th><span>Product Name</span></th>
+    <th><span>Quantity</span></th>
+    <th><span>location</span></th>
+    <th><span>Status</span></th>
+    <th><span>Date Ordered</span></th>
+  </tr>
+{% for or in order %}
+<tr>
+    <td><span>{{or.prod.name}}</span></td>
+    <td><span>{{or.prodqty}}</span></td>
+    <td><span>{{or.location}}</span></td>
+    <td><span>{{or.status}}</span></td>
+    <td><span>{{or.dateordered}}</span></td>
+{% endfor %}
+</tr>
+</table>
+</div>
+{% endblock %}

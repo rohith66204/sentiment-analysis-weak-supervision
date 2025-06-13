@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block userbody %}
+{% load static %}
+<style>
+
+.titlebar
+{
+padding:10px;
+width:97%;
+height:80px;
+background:rgba(94, 142, 137,0.8);
+margin-bottom:20px;
+border:2px solid rgb(241, 103, 103);
+border-radius:10px;
+}
+div.titlebar img.usicon{
+position:relative;
+left:17%;
+}
+div.titlebar img.caicon{
+position:relative;
+margin-left:3%;
+}
+@font-face {
+    font-family: Lobster;
+    src: url({% static 'fonts/Lobster.otf' %});
+}
+.para{
+text-align:center;
+//text-transform:uppercase;
+font-size:30px;
+width:100%;
+float:left;
+margin-top:0px;
+color:white;
+font-family:Lobster;
+}
+.containersd{
+width:100%;
+margin-left:-50px;
+}
+.outercas{
+height:100%;
+width:100%;
+background:rgba(94, 142, 137,0.6);
+overflow:auto;
+border:2px solid rgb(241, 103, 103);
+border-radius:10px;
+}
+</style>
+<div class="containersd">
+<div class="titlebar">
+<p class="para">Weakly-supervised Deep Embedding for Product Review Sentiment Analysis</p>
+</div>
+<div class="outercas">
+<table>
+<tr>
+    <th>Product Name</th>
+    <th>Image</th>
+    <th>Qty</th>
+    <th>Location</th>
+    <th>Ordered Date</th>
+    <th>Status</th>
+</tr>
+{% for pr in prod %}
+<tr>
+<td>{{pr.prod.name}}</td>
+<td><img src="{{pr.prod.images.url}}" style="width:100px;height:100px;" /></td>
+<td>{{pr.prodqty}}</td>
+<td>{{pr.location}}</td>
+<td>{{pr.dateordered}}</td>
+<td>
+{{pr.status}}
+</td>
+{% endfor %}
+</tr>
+</table>
+{% endblock %}

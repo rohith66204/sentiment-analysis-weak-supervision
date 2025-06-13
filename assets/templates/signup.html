@@ -1,0 +1,366 @@
+{% extends 'baselog.html' %}
+{% block loginbody %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .mainblog {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 60px;
+            width: 450px;
+            max-width: 95%;
+            margin: 20px auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .mainblog img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], 
+        input[type="password"],
+        input[type="email"],
+        input[type="date"] {
+            width: 90%;
+            padding: 12px;
+            margin: 12px auto;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid {% if form.errors %} #ff4444 {% else %} white {% endif %};
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        input::placeholder {
+            color: white;
+            opacity: 0.7;
+        }
+
+        input[type="submit"] {
+            width: 60%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: white;
+            color: #2c3e50;
+        }
+
+        .form-errors {
+            color: #ff4444 !important;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+
+        .form-errors p {
+            margin: 5px 0;
+        }
+
+        .banner {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(94, 142, 137, 0.8);
+            border-top: 1px solid green;
+            padding: 10px 0;
+        }
+
+        .title-img1 {
+            width: 100%;
+            margin-top: 2%;
+        }
+
+        .title-img2 {
+            width: 60%;
+            margin-left: 20%;
+            margin-top: -3%;
+        }
+
+        .illustration {
+            position: absolute;
+            width: 35%;
+            top: 30%;
+            left: 1%;
+            z-index: -1;
+        }
+
+        .signup-gif {
+            position: absolute;
+            right: 5%;
+            top: 45%;
+            max-width: 300px;
+            z-index: -1;
+        }
+
+        .field-error {
+            color: #ff4444;
+            font-size: 0.8em;
+            display: block;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+        /* Previous styles remain the same */
+        .field-error {
+            color: #ff4444;
+            font-size: 0.8em;
+            display: block;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .form-errors {
+            display: {% if form.non_field_errors %}block{% else %}none{% endif %};
+            color: #ff4444 !important;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+        .banner {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(135deg, rgba(44,62,80,0.9) 0%, rgba(76,161,175,0.9) 100%);
+        border-top: 1px solid rgba(255,255,255,0.2);
+        padding: 12px 0;
+        box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+
+    .marquee-text {
+        color: #fff;
+        font-size: 50px;
+        text-transform: uppercase;
+        margin: 0;
+        font-weight: 500;
+        letter-spacing: 1.2px;
+        font-family: 'Segoe UI', sans-serif;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        padding: 8px 0;
+        position: relative;
+    }
+
+    .marquee-text::before,
+    .marquee-text::after {
+        content: '✦';
+        color: rgba(255,255,255,0.8);
+        margin: 0 25px;
+        font-size: 18px;
+        animation: sparkle 1.5s infinite;
+    }
+
+    @keyframes sparkle {
+        0%, 100% { opacity: 0.6; }
+        50% { opacity: 1; }
+    }
+
+    marquee {
+        padding: 5px 0;
+    }
+    
+    .banner {
+            margin-top: 40px;
+            background: rgba(94, 142, 137, 0.8);
+            border-radius: 8px;
+            padding: 12px 0;
+            position: relative;
+        }
+
+        .banner p {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+        }
+
+        marquee {
+            padding: 8px 0;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            display: inline-block;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        a:hover {
+            color: #2c3e50;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Images -->
+    <img src="{% static 'images/title2.png' %}" class="title-img1">
+    <img src="{% static 'images/title1.png' %}" class="title-img2">
+
+    <!-- Registration Form -->
+    <div class="mainblog">
+        <img src="{% static 'images/adduser.png' %}" alt="Registration Icon">
+        <form method="post" autocomplete="off" novalidate>
+            {% csrf_token %}
+            
+            <!-- Only show non-field errors at top -->
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error|escape }}</p>
+                {% endfor %}
+            </div>
+
+            <!-- Form fields with individual errors -->
+            <div class="form-group">
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <span class="field-error">{{ form.first_name.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <span class="field-error">{{ form.last_name.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <span class="field-error">{{ form.username.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password }}
+                {% if form.password.errors %}
+                    <span class="field-error">{{ form.password.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <span class="field-error">{{ form.password1.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div style="display:none;">
+                {{ form.password2 }}
+            </div>
+
+            <div class="form-group">
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <span class="field-error">{{ form.email.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                {{ form.birth_date }}
+                {% if form.birth_date.errors %}
+                    <span class="field-error">{{ form.birth_date.errors.0 }}</span>
+                {% endif %}
+            </div>
+
+            <input type="submit" value="Register" /><br><br>
+
+
+            <a href="{% url 'users:login' %}">User Login</a>
+        </form>
+    </div>
+
+  
+
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        const formErrors = document.querySelector('.form-errors');
+
+        form.addEventListener('submit', function(e) {
+            let hasErrors = false;
+            
+            document.querySelectorAll('input[required]').forEach(input => {
+                const errorSpan = input.nextElementSibling;
+                if (!input.value.trim()) {
+                    errorSpan.textContent = 'This field is required';
+                    input.style.borderColor = '#ff4444';
+                    hasErrors = true;
+                }
+            });
+            
+            if (hasErrors) {
+                e.preventDefault();
+                formErrors.style.display = 'none'; // Keep top errors hidden for field-specific errors
+            }
+        });
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', function() {
+                const errorSpan = this.nextElementSibling;
+                if (errorSpan && errorSpan.classList.contains('field-error')) {
+                    errorSpan.textContent = '';
+                    this.style.borderColor = 'white';
+                }
+            });
+        });
+
+        // Password synchronization
+        const src = document.getElementById("id_password1");
+        const dst = document.getElementById("id_password2");
+        if(src && dst) {
+            src.addEventListener('input', function() {
+                dst.value = src.value;
+            });
+        }
+    });
+    </script>
+    
+    <div class="banner">
+    <marquee behavior="scroll" direction="left" scrollamount="6">
+        <p class="marquee-text">
+            Weakly-supervised Deep Embedding for Product Review Sentiment Analysis
+        </p>
+    </marquee>
+</div>
+
+</body>
+</html>
+{% endblock %}

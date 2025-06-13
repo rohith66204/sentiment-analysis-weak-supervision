@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block userbody %}
+{% load static %}
+<style>
+.outercas{
+height:100%;
+width:100%;
+background:rgba(94, 142, 137,0.6);
+overflow:auto;
+border:2px solid rgb(241, 103, 103);
+border-radius:10px;
+}
+.innerclas:hover{
+color:white;
+background:rgba(94, 142, 137,0.2);
+}
+.innerclas{
+width:15%;
+float:left;
+padding:10px;
+background:white;
+margin:10px;
+}
+.viewprodlink{
+padding:0px;
+spacing:0px;
+}
+.intabl{
+width:60%;
+margin:auto;
+}
+.intabl1{
+width:60%;
+margin:auto;
+}
+
+table.intabl tr td{
+height:40px;
+}
+table.intabl1 tr td{
+height:40px;
+}
+.dots{
+padding-left:20px;
+padding-right:20px;
+font-weight:bold;
+}
+.containersd{
+width:100%;
+margin-left:-50px;
+}
+.titlebar
+{
+padding:20px;
+width:100%;
+height:100px;
+background:rgba(94, 142, 137,0.8);
+margin-bottom:20px;
+border:2px solid rgb(241, 103, 103);
+border-radius:10px;
+}
+div.titlebar img.usicon{
+position:relative;
+left:17%;
+}
+div.titlebar img.caicon{
+position:relative;
+margin-left:3%;
+}
+@font-face {
+    font-family: Lobster;
+    src: url({% static 'fonts/Lobster.otf' %});
+}
+.para{
+text-align:center;
+//text-transform:uppercase;
+font-size:30px;
+width:75%;
+float:left;
+margin-top:-20px;
+color:white;
+font-family:Lobster;
+}
+
+.comico{
+float:left;
+padding:0px;
+margin:0px;
+}
+input[type=text],input[type=number]{
+visibility:block;
+}
+
+</style>
+<link rel="stylesheet" href="{% static 'css/bootstrap1.min.css' %}">
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<div class="containersd">
+<div class="titlebar">
+<p class="para">Weakly-supervised Deep Embedding for Product Review Sentiment Analysis</p>
+<a href="{% url 'users:yourorders' %}" class="comico" style="margin-left:40px;"><img src="{% static 'images/cart.png' %}" style="width:40px;height:40px;"/></a>
+</div>
+<div class="outercas">
+{% for pro in prod %}
+<div class="innerclas">
+<img src="{{pro.images.url}}" style="width:100%;height:100px"><br/>
+{{pro.name}}<br/>
+<a class="viewprodlink"  data-toggle="modal" data-target="#myModal{{pro.id}}">view product</a>
+</div>
+<div class="modal fade" id="myModal{{pro.id}}" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Product Details</h4>
+        </div>
+        <div class="modal-body">
+            <table>
+            <tr>
+            <td colspan="2"><img src="{{pro.images.url}}" style="height:250px;width:565px;"/></td>
+            </tr>
+            <tr>
+            <td align="center">
+                <table class="intabl">
+                <tr>
+                <td>Name</td>
+                <td><span class="dots">:</span></td>
+                <td>{{pro.name}}</td>
+            </tr>
+            <tr>
+                <td>weight</td>
+                <td><span class="dots">:</span></td>
+                <td>{{pro.weight}}</td>
+            </tr>
+            <tr>
+                <td>color</td>
+                <td><span class="dots">:</span></td>
+                <td>{{pro.color}}</td>
+            </tr>
+            <tr>
+                <td>price</td>
+                <td><span class="dots">:</span></td>
+                <td>{{pro.price}}</td>
+            </tr>
+            <tr>
+                <td>category</td>
+                <td><span class="dots">:</span></td>
+                <td>{{pro.category}}</td>
+            </tr>
+            <tr>
+                <td>stock</td>
+                <td><span class="dots">:</span></td>
+                <td>
+                {% if pro.stock > 0 %}
+                <span>{{pro.stock}}</span>
+                {% else %}
+                <span>No Stock</span>
+                {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td><span class="dots">:</span></td>
+                <td>{{pro.description}}</td>
+                </tr>
+                </table>
+                </td>
+            </tr>
+            <tr>
+               <td>
+                    <table  class="intabl1">
+                    <tr>
+                    <td colspan="3"><div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+      <span style="font-size: 25px; background-color: white; padding: 0 10px;">
+        Cart Details<!--Padding is optional-->
+      </span>
+    </div></td>
+                    </tr>
+                    <tr>
+                    <form method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <td><span >Product Quantity</span></td>
+                    <td><span class="dots">:</span></td>
+                    <td>{{ form.prodqty }}</td>
+                    </tr>
+                    <tr>
+                    <td>Location</td>
+                    <td><span class="dots">:</span></td>
+                    <td>{{ form.location }}</td>
+                    </tr>
+                    </table>
+               </td>
+            </tr>
+            </table>          
+            <input type="hidden" name="idu" value="{{pro.id}}" style="visibility:none">
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="addcart" class="btn btn-default">Add To Cart</button>
+          </form>
+          <a class="btn btn-default" href="{% url 'users:viewratings' pro.id %}">View Ratings</a>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <script>
+      function foo()
+      {
+        window.location = "{% url 'users:viewratings' pro.id %}";
+      }
+      </script>
+    </div>
+  </div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}

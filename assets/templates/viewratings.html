@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% block userbody %}
+{% load static %}
+<style>
+
+.titlebar
+{
+padding:10px;
+width:97%;
+height:80px;
+background:rgba(94, 142, 137,0.8);
+margin-bottom:20px;
+border:2px solid rgb(241, 103, 103);
+border-radius:10px;
+}
+div.titlebar img.usicon{
+position:relative;
+left:17%;
+}
+div.titlebar img.caicon{
+position:relative;
+margin-left:3%;
+}
+@font-face {
+    font-family: Lobster;
+    src: url({% static 'fonts/Lobster.otf' %});
+}
+.para{
+text-align:center;
+//text-transform:uppercase;
+font-size:30px;
+width:100%;
+float:left;
+margin-top:0px;
+color:white;
+font-family:Lobster;
+}
+.containersd{
+width:100%;
+margin-left:-50px;
+}
+.outercas{
+margin:center;
+height:100%;
+width:100%;
+background:rgba(94, 142, 137,0.6);
+overflow:auto;
+border:2px solid rgb(241, 103, 103);
+border-radius:10px;
+}
+
+
+.tooltip {
+    position: relative;
+    float:right;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.exa{
+ width: 100px;
+    height: 100px;
+    background: red;
+    position: relative;
+    -webkit-animation-name: example;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-duration: 3s;  /* Safari 4.0 - 8.0 */    
+    -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+    animation-name: example;
+    animation-duration: 3s;    
+    animation-fill-mode: forwards;
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes example {
+    from {top: 0px;}
+    to {top: 200px; background-color: blue;}
+}
+
+@keyframes example {
+    from {top: 0px;}
+    to {top: 200px; background-color: blue;}
+}
+</style>
+<link rel="stylesheet" href="{% static 'dist/starrr.css' %}">
+<link rel="stylesheet" href="{% static 'css/der.css' %}">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+<div class="containersd">
+<div class="titlebar">
+<p class="para">Weakly-supervised Deep Embedding for Product Review Sentiment Analysis</p>
+</div>
+<div class="outercas">
+<table style="width:500px;">
+<tr>
+    <td colspan="2"><img src="{{productdetails.images.url}}" style="width:100%;height:40%;" /></td>
+</tr>
+<tr>
+    <td>Product Name</td>
+    <td>{{productdetails.name}}</td>
+</tr>
+<tr>
+    <td>Product Weight</td>
+    <td>{{productdetails.weight}}</td>
+</tr>
+<tr>
+    <td>Product Color</td>
+    <td>{{productdetails.color}}</td>
+</tr>
+<tr>
+    <td>Product Price</td>
+    <td>{{productdetails.price}}</td>
+</tr>
+<tr>
+    <td>Product Category</td>
+    <td>{{productdetails.category}}</td>
+</tr>
+<tr>
+    <td>Product Stock</td>
+    <td>{{productdetails.stock}}</td>
+</tr>
+<tr>
+    <td>Product Description</td>
+    <td>{{productdetails.description}}</td>
+</tr>
+<tr>
+    <td colspan="2">
+        <span style="font-size:20px;text-transform:uppercase;color:white;">comments</span>
+        <div class="tooltip">
+        <button style="background:none;border:none;" onclick="show()"  class="btn btn-info" data-toggle="collapse" data-target="#demo"><img src="{% static 'images/review.png' %}" style="height:70%;"></button>
+        <span class="tooltiptext" >Add Your Review</span></div>
+        <hr/>
+        <table>
+        <form method="post">
+        {% csrf_token %}
+            <tr  style="visibility: collapse;" id="mytrid">
+                <td>
+                <div style="visibility: collapse;" id="mydivid">
+                <table>
+                <tr>
+                <td><div class='starrr' id='star2'></div></td>
+                </tr>
+                <tr style="visibility:collapse;">
+                <td><input type="number" name="ratings" id='star2_input' placeholder="enter your ratings"></td>
+                </tr>
+                <tr>
+                <td><input type="text" name="review" placeholder="enter your review"></td>
+                </tr>
+                <tr>
+                <td><input type="submit" name="rtngbtn" value="submit"></td>
+                </tr>
+                </form>
+                </table>
+                </div>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+        <table>
+        {% for rat in ratings %}
+        <tr>
+        <td>{{rat.reviews}}</td>
+        {% endfor %}
+        </tr>
+        </table>
+    </td>
+</tr>
+</table>
+</div>
+</div>
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+  <script src="{% static 'dist/starrr.js' %}"></script>
+  <script>
+  
+
+    var $s2input = $('#star2_input');
+    $('#star2').starrr({
+      max: 5,
+      rating: $s2input.val(),
+      change: function(e, value){
+        $s2input.val(value).trigger('input');
+      }
+    });
+  </script>
+  <script type="text/javascript">
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-39205841-5', 'dobtco.github.io');
+    ga('send', 'pageview');
+  </script>
+<script>
+function show(){
+document.getElementById("mytrid").style.visibility = "visible";
+document.getElementById("mydivid").style.visibility = "visible";
+}
+</script>
+{% endblock %}

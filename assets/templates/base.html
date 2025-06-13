@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>CSS3 MENU BUILD</title>
+      <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  
+</head>
+
+<body style="background:url({% static 'images/2.jpg' %});">
+
+      <ul>
+        <li class="active" style="width: 16.6666666666667%"><a href="{% url 'users:home' %}" target="">Home</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'users:yourorders' %}" target="">Your Orders</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'users:confirmedorders' %}" target="">Confirmed Products</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'users:productlist' %}" target="">Product List</a></li>
+        
+        <li style="width: 16.6666666666667%"><a href="{% url 'users:topproducts' %}" target="">Top Products</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'users:graphs' %}" target="">Graphs</a></li>
+
+        <li style="width: 16.6666666666667%"><a href="{% url 'users:logout' %}" target="">Logout</a></li>
+    </ul>
+  
+  <div style="margin-top:-400px;margin-left:400px;">
+    {% block userbody %}
+    {% endblock %}
+    </div>
+    
+
+</body>
+
+</html>

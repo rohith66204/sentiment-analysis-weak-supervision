@@ -1,0 +1,22 @@
+*{
+padding: 0px;
+margin: 0px;
+}
+.mainblog{
+    background:rgba(94, 142, 137,0.8);
+    border:1px solid green;
+    float:left;
+    padding-top:100px;
+    padding-left:100px;
+    padding-right:100px;
+     position:fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -10em; /*set to a negative number 1/2 of your height*/
+    margin-left: -13em; /*set to a negative number 1/2 of your width*/
+    border-radius:10px;
+}
+.logintable{
+    padding:10px;    
+}
+div.

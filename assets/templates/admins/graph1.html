@@ -1,0 +1,97 @@
+{% extends 'admins/base.html' %}
+{% block adminbody %}
+<style>
+th span{
+color:black;
+}
+span{
+color:white;
+}
+table tr th{
+padding:15px;
+text-align:center;
+}
+.tableholder{
+padding:10px;
+float:left;
+width:80%;
+background:rgba(94, 142, 137,0.7);
+}
+table{
+width:100%;
+border:1px solid green;
+border-collapse:collapse;
+}
+td{
+border-right:1px solid green;
+border-bottom:1px solid green;
+}
+tr:first-child{
+background:green;
+}
+.menus{
+padding:0px;
+margin:0px;
+border:1px solid white;
+margin-bottom:10px;
+}
+div.menus a{
+color:white;
+}
+div.menus table tr:first-child{
+background:none;
+border:none;
+}
+div.menus table tr td{
+background:none;
+border:none;
+}
+</style>
+
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	exportEnabled: true,
+	title:{
+		text: "Category-Wise Ratings Analysis"
+	},
+	data: [{
+		type: "pyramid",
+		indexLabelFontSize: 18,
+		valueRepresents: "area",
+		showInLegend: true,
+		legendText: "{indexLabel}",
+		toolTipContent: "<b>{indexLabel}:</b> {y}%",
+		dataPoints: [
+        {% for p in prod %}
+            { y: {{p.ratings}}, indexLabel: "{{p.product__category}}" },
+        {% endfor %}
+/*			{ y: 30, indexLabel: "Research and Design" },
+			{ y: 30, indexLabel: "Manufacturing" },
+			{ y: 15, indexLabel: "Marketing" },
+			{ y: 13, indexLabel: "Shipping" },
+			{ y: 12, indexLabel: "Retail" }*/
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+
+<div class="tableholder">
+<div class="menus">
+<table>
+<tr>
+<td style="background:{% if chart_type == 'products' %}green{% endif %}"><a href="{% url 'admins:graph' 'product' %}">Product</a></td>
+<td style="background:{% if chart_type == 'category' %}green{% endif %}"><a href="{% url 'admins:graph' 'category' %}">Category</a></td>
+<td style="background:{% if chart_type == 'sentiment' %}green{% endif %}"><a href="{% url 'admins:graph' 'sentiment' %}">Sentiment</a></td>
+</tr>
+</table>
+</div>
+<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+</div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{% endblock %}

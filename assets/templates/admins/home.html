@@ -1,0 +1,116 @@
+{% extends 'admins/base.html' %}
+{% block adminbody %}
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.prod{
+height:25%;
+background:green;
+}
+.imgdiv{
+margin:10px;
+background:green;
+height:100px;
+}
+div.imgdiv img{
+height:100%;
+}
+.contentdiv{
+position:absolute;
+right:10px;
+top:10px;
+background:red;
+}
+.tableholder{
+padding:10px;
+float:left;
+width:80%;
+background:rgba(94, 142, 137,0.7);
+}
+table{
+width:100%;
+}
+a:hover{
+color:white;
+text-decoration:none;
+}
+a.vewdet{
+text-decoration:none;
+color:white;
+}
+a.vewdet:hover{
+background:black;
+border-radius:50px;
+}
+th span{
+color:black;
+}
+span{
+color:white;
+}
+table tr th{
+padding:15px;
+text-align:center;
+}
+img{
+height:100px;
+width:100px;
+}
+</style>
+<div class="tableholder">
+  <table>
+  <tr>
+    <th><span>Name</span></th>
+    <th><span>Weight</span></th>
+    <th><span>Price</span></th>
+    <th><span>Image</span></th>
+    <th><span>Details</span></th>
+  </tr>
+{% for pr in prod %}
+<tr>
+    <td><span>{{pr.name}}</span></td>
+    <td><span>{{pr.weight}}</span></td>
+    <td><span>{{pr.price}}</span></td>
+    <td><img src="{{pr.images.url}}" style="width:200px;"/></td>
+    <td><a data-toggle="modal" data-target="#product_view{{pr.id}}" class="vewdet">View Details</a></td>
+   
+   
+   
+   
+   <div class="modal fade product_view" id="product_view{{pr.id}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="height:60px;">
+                <a href="#" data-dismiss="modal" class="class pull-right"><span class="glyphicon glyphicon-remove" ></span></a>
+                <h3 class="modal-title">{{pr.category}}&nbsp;&nbsp;&nbsp;>&nbsp;&nbsp;&nbsp;{{pr.name}}</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 product_img">
+                        <img src="{{pr.images.url}}" class="img-responsive" style="width:490px;height:500px;">
+                    </div>
+                    <div class="col-md-6 product_content">
+                        <h4>Product Id: <span>{{pr.id}}</span></h4>
+                        Name&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{pr.name}}<br/><br/>
+                        Weight&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{pr.weight}}<br/><br/>
+                        color&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{pr.color}}<br/><br/>
+                        Price&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{pr.price}}<br/><br/>
+                        Category&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{pr.category}}<br/><br/>
+                        <span style="color:red;font-size:20px;">stock&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{pr.stock}}</span><br/><br/>
+                        Description&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;{{pr.description}}<br/><br/>
+                        <div class="space-ten"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+{% endfor %}
+ </tr>
+    </table>
+    </div>
+{% endblock %}
