@@ -80,11 +80,12 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'productreview',
         'USER': 'root',
-        'PASSWORD': 'Rohith@1532',
+        'PASSWORD': 'Rohith@1532',         
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
+
 
 
 # Password validation
