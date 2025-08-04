@@ -7,75 +7,119 @@
     <meta charset="UTF-8">
     <title>Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Optional Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap" rel="stylesheet">
-    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Particle.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background: linear-gradient(135deg, #2c3e50, #4ca1af);
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            background: url("{% static 'images/we.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
 
         .mainblog {
             backdrop-filter: blur(15px);
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(0, 0, 0, 0.45);
             border-radius: 20px;
-            padding: 40px 30px;
-            width: 420px;
-            max-width: 95%;
+            padding: 50px 40px;
+            max-width: 420px;
             margin: 40px auto;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
             text-align: center;
             color: white;
-            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .mainblog img {
-            width: 70px;
+            width: 80px;
             margin-bottom: 20px;
         }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        input[type="date"] {
-            width: 90%;
-            padding: 12px;
-            margin: 12px 0;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid {% if form.errors %}#ff4444{% else %}white{% endif %};
-            color: white;
-            border-radius: 10px;
-            font-size: 15px;
-            text-align: center;
-            transition: 0.3s;
+        .input-container {
+            position: relative;
+            margin: 20px 0;
+            animation: fieldFade 0.6s ease-out forwards;
+            opacity: 0;
         }
 
-        input:focus {
-            border-color: #6ee7b7;
+        @keyframes fieldFade {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .input-container input {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 14px 12px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 15px;
             outline: none;
+        }
+
+        .input-container label {
+            position: absolute;
+            left: 12px;
+            top: 14px;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .input-container input:focus + label,
+        .input-container input:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            background: rgba(0,0,0,0.4);
+            padding: 0 6px;
+            border-radius: 6px;
         }
 
         input[type="submit"] {
             width: 70%;
             padding: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            border-radius: 8px;
+            background: #ffffff10;
+            border: none;
+            border-radius: 12px;
             color: white;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
             margin-top: 20px;
             transition: all 0.3s ease;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.4), -4px -4px 8px rgba(255,255,255,0.1);
         }
 
         input[type="submit"]:hover {
-            background: white;
+            background: rgba(255, 255, 255, 0.8);
             color: #2c3e50;
+            box-shadow: inset 2px 2px 6px rgba(0,0,0,0.4), inset -2px -2px 6px rgba(255,255,255,0.2);
         }
 
         .form-errors {
@@ -101,7 +145,7 @@
             text-decoration: none;
             margin: 10px;
             display: inline-block;
-            font-weight: bold;
+            font-weight: 500;
             transition: 0.3s;
         }
 
@@ -121,31 +165,32 @@
         }
 
         .title-img2 {
-            width: 45%;
-            margin: -2% auto 20px;
+            width: 40%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: -2%;
             display: block;
         }
 
         .banner {
+            width: 100%;
+            backdrop-filter: blur(12px);
+            background: linear-gradient(135deg, rgba(204,125,194,0.6), rgba(76,161,175,0.6));
+            border-top: 1px solid rgba(255,255,255,0.3);
+            padding: 12px 0;
+            box-shadow: 0 -2px 15px rgba(0,0,0,0.2);
             position: fixed;
             bottom: 0;
-            width: 100%;
-            background: linear-gradient(135deg, rgba(44,62,80,0.9), rgba(76,161,175,0.9));
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding: 12px 0;
-            box-shadow: 0 -2px 15px rgba(0,0,0,0.1);
             z-index: 1000;
         }
 
         .marquee-text {
             color: #fff;
-            font-size: 22px;
+            font-size: 20px;
+            font-weight: 500;
             text-transform: uppercase;
             margin: 0;
-            font-weight: 500;
             letter-spacing: 1.2px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            padding: 5px 0;
         }
 
         .marquee-text::before,
@@ -162,10 +207,6 @@
             50% { opacity: 1; }
         }
 
-        marquee {
-            padding: 4px 0;
-        }
-
         @media (max-width: 480px) {
             .mainblog {
                 width: 90%;
@@ -177,12 +218,14 @@
             }
 
             .title-img2 {
-                width: 65%;
+                width: 80%;
+                margin-top: 0;
             }
         }
     </style>
 </head>
 <body>
+<div id="particles-js"></div>
 
 <!-- Header Images -->
 <img src="{% static 'images/title2.png' %}" class="title-img1">
@@ -200,58 +243,15 @@
             {% endfor %}
         </div>
 
-        <div class="form-group">
-            {{ form.first_name }}
-            {% if form.first_name.errors %}
-                <span class="field-error">{{ form.first_name.errors.0 }}</span>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            {{ form.last_name }}
-            {% if form.last_name.errors %}
-                <span class="field-error">{{ form.last_name.errors.0 }}</span>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            {{ form.username }}
-            {% if form.username.errors %}
-                <span class="field-error">{{ form.username.errors.0 }}</span>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            {{ form.password }}
-            {% if form.password.errors %}
-                <span class="field-error">{{ form.password.errors.0 }}</span>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            {{ form.password1 }}
-            {% if form.password1.errors %}
-                <span class="field-error">{{ form.password1.errors.0 }}</span>
-            {% endif %}
-        </div>
-
-        <div style="display:none;">
-            {{ form.password2 }}
-        </div>
-
-        <div class="form-group">
-            {{ form.email }}
-            {% if form.email.errors %}
-                <span class="field-error">{{ form.email.errors.0 }}</span>
-            {% endif %}
-        </div>
-
-        <div class="form-group">
-            {{ form.birth_date }}
-            {% if form.birth_date.errors %}
-                <span class="field-error">{{ form.birth_date.errors.0 }}</span>
-            {% endif %}
-        </div>
+        {% for field in form.visible_fields %}
+            <div class="input-container">
+                {{ field }}
+                <label>{{ field.label }}</label>
+                {% if field.errors %}
+                    <span class="field-error">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
 
         <input type="submit" value="Register" /><br><br>
         <a href="{% url 'users:login' %}">User Login</a>
@@ -261,46 +261,34 @@
 <!-- Banner -->
 <div class="banner">
     <marquee behavior="scroll" direction="left" scrollamount="6">
-        <p class="marquee-text">
-            Weakly-supervised Deep Embedding for Product Review Sentiment Analysis
-        </p>
+        <p class="marquee-text">✦ Weakly-supervised Deep Embedding for Product Review Sentiment Analysis ✦</p>
     </marquee>
 </div>
 
-<!-- JS Validation Enhancer -->
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const form = document.querySelector('form');
-        const formErrors = document.querySelector('.form-errors');
-
-        form.addEventListener('submit', function (e) {
-            let hasErrors = false;
-            document.querySelectorAll('input[required]').forEach(input => {
-                const errorSpan = input.nextElementSibling;
-                if (!input.value.trim()) {
-                    if (errorSpan) errorSpan.textContent = 'This field is required';
-                    input.style.borderColor = '#ff4444';
-                    hasErrors = true;
-                }
-            });
-
-            if (hasErrors) {
-                e.preventDefault();
-                formErrors.style.display = 'none';
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 60 },
+            "size": { "value": 3 },
+            "color": { "value": "#ffffff" },
+            "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.2,
+                "width": 1
+            },
+            "move": { "speed": 2 }
+        },
+        "interactivity": {
+            "events": {
+                "onhover": { "enable": true, "mode": "grab" }
             }
-        });
+        }
+    });
 
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', function () {
-                const errorSpan = this.nextElementSibling;
-                if (errorSpan && errorSpan.classList.contains('field-error')) {
-                    errorSpan.textContent = '';
-                    this.style.borderColor = 'white';
-                }
-            });
-        });
-
-        // Password synchronization
+    // Password sync if applicable
+    document.addEventListener('DOMContentLoaded', function () {
         const src = document.getElementById("id_password1");
         const dst = document.getElementById("id_password2");
         if (src && dst) {
